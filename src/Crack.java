@@ -48,7 +48,6 @@ public class Crack {
         } catch(IOException ignored) {}
         return lineCount;
     }
-
     public static User[] parseShadow(String shadowFile) throws FileNotFoundException {
         File path = Path.of(shadowFile).toFile();
         int lineCount = getLineCount(String.valueOf(path));
