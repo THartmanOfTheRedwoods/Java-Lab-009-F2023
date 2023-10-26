@@ -1,9 +1,6 @@
 import org.apache.commons.codec.digest.Crypt;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -31,6 +28,14 @@ public class Crack {
     }
 
     public static User[] parseShadow(String shadowFile) throws FileNotFoundException {
+        int[] User = new int[]{getLineCount(shadowFile)};
+        String line;
+        InputStreamReader reader = new InputStreamReader(System.in);
+        Scanner scan = new Scanner(System.in);
+        while((line = reader.read(shadowFile)) != null){
+        reader.read(shadowFile);
+        }
+
     }
 
     public static void main(String[] args) throws FileNotFoundException {
