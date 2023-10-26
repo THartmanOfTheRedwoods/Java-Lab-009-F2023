@@ -19,8 +19,28 @@ public class Crack {
         this.users = Crack.parseShadow(shadowFile);
     }
 
-    public void crack() throws FileNotFoundException {
-    }
+        public void crack() throws FileNotFoundException {
+            InputStream is = new FileInputStream(this.dictionary);
+            Scanner sc = new Scanner(is);
+            while (sc.hasNextLine()) {
+                String word = sc.nextLine();
+                for (User user : this.users) {
+                    String passHash = user.getPassHash();
+                    if (passHash.contains("$")) {
+                        String hash = Crypt.crypt(word, passHash);
+                        if (hash.equals(passHash)) {
+                            System.out.println("Found password " + word + " for user " + user.getUsername());
+                        }
+                    }
+                }
+            }
+            sc.close();
+            try {
+                is.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
     public static int getLineCount(String path) {
         int lineCount = 0;
@@ -31,7 +51,25 @@ public class Crack {
     }
 
     public static User[] parseShadow(String shadowFile) throws FileNotFoundException {
-    }
+            User[] users = new User[getLineCount(shadowFile)];
+            InputStream is = new FileInputStream(shadowFile);
+            Scanner sc = new Scanner(is);
+            int index = 0;
+            while (sc.hasNextLine()) {
+                String line = sc.nextLine();
+                String[] parts = line.split(":");
+                User user = new User(parts[0], parts[1]);
+                users[index] = user;
+                index++;
+            }
+            sc.close();
+            try {
+                is.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return users;
+        }
 
     public static void main(String[] args) throws FileNotFoundException {
         Scanner sc = new Scanner(System.in);
