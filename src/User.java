@@ -1,8 +1,8 @@
 public class User {
-    private static String username;
-    private static String passHash;
+    private String username;
+    private String passHash;
 
-    public void user(username, passHash){
+    public User(String username,String passHash){
         this.username = username;
         this.passHash = passHash;
     }
