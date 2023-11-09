@@ -1,3 +1,8 @@
+/*Finn Clark
+* 11/09/2023
+* CIS - 12
+* Hartman */
+
 import org.apache.commons.codec.digest.Crypt;
 
 import java.io.*;
@@ -18,7 +23,18 @@ public class Crack {
     }
 
     public void crack() throws FileNotFoundException {
-
+        Scanner in = new Scanner(new FileInputStream(this.dictionary), StandardCharsets.UTF_8);
+        while(in.hasNextLine()){
+            String word = in.nextLine();
+            for (User user : users){
+                if (user.getPassHash().contains("$")){
+                    String hash = Crypt.crypt(word, user.getPassHash());
+                    if(hash.equals(user.getPassHash())){
+                        System.out.printf("Found password %s for user %s%n", word, user.getUsername());
+                    };
+                }
+            }
+        }
     }
 
     public static int getLineCount(String path) {
@@ -32,7 +48,6 @@ public class Crack {
     public static User[] parseShadow(String shadowFile) throws FileNotFoundException {
         User[] users = new User[Crack.getLineCount(shadowFile)];
         String line;
-        InputStreamReader reader = new InputStreamReader(System.in);
         Scanner scan = new Scanner(new FileInputStream(shadowFile), StandardCharsets.UTF_8);
         int index = 0;
         while(scan.hasNextLine()){
