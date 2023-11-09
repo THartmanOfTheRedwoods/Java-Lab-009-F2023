@@ -31,6 +31,16 @@ public class Crack {
     }
 
     public static User[] parseShadow(String shadowFile) throws FileNotFoundException {
+
+//  Complete the body of the parseShadow method utilizing:
+//  the pre-complete method getLineCount to create a user array called Users
+//  imported class FileInputStream
+//  imported class Scanner
+//  a while loop that uses the above 2 imported classes to read the resources/shadow file line by line.
+//  the split method and the delimiter : to split each line into a string array (i.e. String[])
+//  use the first 2 elements of the split string array to create a new User(element1, element2)
+//  and finally store each new User into a User array (i.e. User[] users), and return the array.
+
     }
 
     public static void main(String[] args) throws FileNotFoundException {
