@@ -22,18 +22,40 @@ public class Crack {
     }
 
     public void crack() throws FileNotFoundException {
-        Scanner s = new Scanner(new FileInputStream(this.dictionary));
-        while (s.hasNextLine()) {
-            String word = s.nextLine();
-            int i = 0;
-            System.out.println(i);
-            for (User user : users) {
-                if(user.getPassHash().startsWith("$")) {
-                    String hash = Crypt.crypt(word, user.getPassHash());
+        Scanner s;
+
+//        int A = 0;              //scaffold
+//        int B = 0;              //scaffold
+//        int C = 0;              //scaffold
+
+        for (User users : users) {
+            s = new Scanner(new FileInputStream(this.dictionary));
+
+//            System.out.println("A" + A);        //scaffold
+//            A++;                                //scaffold
+
+            if(users.getPassHash().startsWith("$")) {
+//                System.out.println("B" + B);        //scaffold
+//                B++;                                //scaffold
+
+                String hash;
+                String word;
+
+//                System.out.println(users.getPassHash().split(":",2)[0]);         //scaffold
+
+                do {
+//                    System.out.println("C" + C);        //scaffold
+//                    C++;                                //scaffold
+
+                    word = s.nextLine();
+//                    System.out.println(word);       //scaffold
+
+                    hash = Crypt.crypt(word, users.getPassHash());
+
 //                    System.out.println(hash);           //scaffold
-                    System.out.printf("User %d%nname: %s%npass: %s%n%n", i, user.getUsername(), word);
-                    i++;
-                }
+                } while (s.hasNextLine() && !(hash.equals(users.getPassHash().split(":",2)[0])));
+
+        System.out.printf("%nname: %s%npass: %s%n%n", users.getUsername(), word);
 
             }
         }
@@ -52,9 +74,8 @@ public class Crack {
 //        System.out.printf("File as %d lines%n", user.length);            //scaffold
 
         try {
-            String line = "";           //scaffold
+//            String line = "";           //scaffold
             String[] arrNameAndPass = new String[2];
-            System.out.println(arrNameAndPass.length);
             Scanner s = new Scanner(new FileInputStream(shadowPath));
             int i = 0;
             do {
@@ -70,7 +91,7 @@ public class Crack {
     }
 
     public static void getPathAndDict(){
-        Scanner sc = new Scanner(System.in);
+//        Scanner sc = new Scanner(System.in);
         System.out.println("Type the path to your shadow file: ");
         shadowPath = /*sc.nextLine()*/ "resources/shadow";              //splint
         System.out.println(shadowPath);                                 //scaffold
@@ -80,11 +101,9 @@ public class Crack {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        try {
             getPathAndDict();
             Crack c = new Crack(shadowPath, dictPath);
             c.crack();
-        } catch (IOException e) {
-        }
+
     }
 }
