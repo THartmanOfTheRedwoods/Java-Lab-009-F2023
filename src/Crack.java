@@ -1,3 +1,6 @@
+// Naqibullah Haiwadpal
+//11/11/2023
+
 import org.apache.commons.codec.digest.Crypt;
 
 import java.io.FileInputStream;
@@ -17,6 +20,7 @@ public class Crack {
         this.dictionary = dictionary;
         this.users = Crack.parseShadow(shadowFile);
     }
+
     public void crack() throws FileNotFoundException {
         try (Scanner scanner = new Scanner(new FileInputStream(dictionary))) {
             while (scanner.hasNextLine()) {
