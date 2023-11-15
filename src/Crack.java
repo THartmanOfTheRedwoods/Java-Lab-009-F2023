@@ -30,7 +30,6 @@ while(scanner.hasNextLine()){
 
             String hash = Crypt.crypt(word, user.getPassHash());
             if(hash.equals(user.getPassHash())){
-
                 System.out.printf("Found password %s for user %s %n", word, user.getUsername());
             }
         }
