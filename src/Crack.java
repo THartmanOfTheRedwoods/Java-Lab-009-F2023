@@ -27,7 +27,6 @@ while(scanner.hasNextLine()){
     for (User user : users){
 
         if(user.getPassHash().contains("$")){
-
             String hash = Crypt.crypt(word, user.getPassHash());
             if(hash.equals(user.getPassHash())){
                 System.out.printf("Found password %s for user %s %n", word, user.getUsername());
