@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 public class Crack {
     private final User[] users;
     private final String dictionary;
-
+//
     public Crack(String shadowFile, String dictionary) throws FileNotFoundException {
         this.dictionary = dictionary;
         this.users = Crack.parseShadow(shadowFile);
