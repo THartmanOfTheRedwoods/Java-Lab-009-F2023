@@ -1,9 +1,6 @@
 import org.apache.commons.codec.digest.Crypt;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -20,6 +17,18 @@ public class Crack {
     }
 
     public void crack() throws FileNotFoundException {
+        Scanner sc = new Scanner(new FileInputStream(this.dictionary), StandardCharsets.UTF_8);
+        while(sc.hasNextLine()){
+            String word = sc.nextLine();
+            for(User user : users){
+                if(user.getPassHash().contains("$")){
+                    String hash = Crypt.crypt(word, user.getPassHash());
+                    if(hash.equals(user.getPassHash())){
+                        System.out.printf("Ya did it buster. Found password %s for user %s%n", word, user.getUsername());
+                    }
+                }
+            }
+        }
     }
 
     public static int getLineCount(String path) {
@@ -31,6 +40,16 @@ public class Crack {
     }
 
     public static User[] parseShadow(String shadowFile) throws FileNotFoundException {
+        User[] users = new User[Crack.getLineCount(shadowFile)];
+
+        Scanner sc = new Scanner(new FileInputStream(shadowFile), StandardCharsets.UTF_8);
+        int index = 0;
+        while(sc.hasNextLine()){
+            String[] userLine = sc.nextLine().split(":");
+            users[index] = new User(userLine[0], userLine[1]);
+            index++;
+        }
+        return users;
     }
 
     public static void main(String[] args) throws FileNotFoundException {
